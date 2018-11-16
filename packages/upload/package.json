@@ -1,0 +1,16 @@
+{
+  "name": "@zh/upload-material-ui",
+  "version": "0.0.1",
+  "description": "Encapsulate material-ui and build upload components",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "xzh",
+  "license": "MIT",
+  "dependencies": {
+    "@material-ui/core": "^3.5.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3"
+  }
+}
