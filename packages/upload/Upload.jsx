@@ -12,7 +12,7 @@ class Upload extends Component {
   }
 
   static defaultProps = {
-    label: "Upload"
+    label: "Add"
   };
 
   static propTypes = {
