@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import propTypes from "prop-types";
 import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardMedia from '@material-ui/core/CardMedia';
 
-class Upload extends Component {
+class UploadList extends Component {
   constructor(props) {
     super(props);
     this.inputRef = React.createRef();
@@ -12,7 +15,7 @@ class Upload extends Component {
   }
 
   static defaultProps = {
-    label: "Add"
+    label: "Upload"
   };
 
   static propTypes = {
@@ -51,27 +54,30 @@ class Upload extends Component {
     const { imageSrc } = this.state;
     return (
       <React.Fragment>
-        {imageSrc ? (
-          <img
-            src={imageSrc}
-            alt="imageSrc"
-            style={{ maxWidth: 200, maxHeight: 200 }}
+        
+        <Card style={{maxWidth: 400}}>
+          <CardMedia
+            component="img"
+            alt="Contemplative Reptile"
+            image={imageSrc}
           />
-        ) : null}
-        <input
-          type="file"
-          id="raised-button-file"
-          hidden
-          ref={this.inputRef}
-          {...inputProps}
-        />
-        <label htmlFor="raised-button-file">
-          <Button variant="contained" component="span" {...buttonProps}>
-            {label}
-          </Button>
-        </label>
+          <CardActions disableActionSpacing>
+            <input
+              type="file"
+              id="raised-button-file"
+              hidden
+              ref={this.inputRef}
+              {...inputProps}
+            />
+            <label htmlFor="raised-button-file">
+              <Button variant="contained" component="span" {...buttonProps}>
+                {label}
+              </Button>
+            </label>
+          </CardActions>
+        </Card>
       </React.Fragment>
     );
   }
 }
-export default Upload;
+export default UploadList;
