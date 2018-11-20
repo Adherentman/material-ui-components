@@ -3,14 +3,14 @@ import propTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
-import CardMedia from '@material-ui/core/CardMedia';
+import CardMedia from "@material-ui/core/CardMedia";
 
 class UploadList extends Component {
   constructor(props) {
     super(props);
     this.inputRef = React.createRef();
     this.state = {
-      imageSrc: ""
+      imageSrc: {}
     };
   }
 
@@ -23,30 +23,31 @@ class UploadList extends Component {
   };
 
   componentDidMount() {
-    this.inputRef.current.addEventListener(
-      "change",
-      this.handleselectedFile,
-      false
-    );
+    const Ref = this.inputRef.current;
+    Ref.addEventListener("change", this.handleselectedFile, false);
   }
 
   componentWillUnmount() {
-    this.inputRef.current.removeEventListener(
-      "change",
-      this.handleselectedFile,
-      false
-    );
+    const Ref = this.inputRef.current;
+    Ref.removeEventListener("change", this.handleselectedFile, false);
   }
 
   handleselectedFile = e => {
-    let fileReader = new FileReader();
-    if (this.inputRef.current.files[0])
-      fileReader.readAsDataURL(this.inputRef.current.files[0]);
-    fileReader.onload = e => {
-      this.setState({
-        imageSrc: e.target.result
-      });
-    };
+    const Ref = this.inputRef.current.files;
+    if (Ref) {
+      let fileList = {};
+      for (let i in Ref) {
+        if (/\.(jpe?g|png|gif)$/i.test(Ref[i].name)) {
+          let fileReader = new FileReader();
+          fileReader.readAsDataURL(Ref[i]);
+          fileReader.onload = e => {
+            // console.log(e.target.result);
+            fileList[i] = e.target.result;
+          };
+        }
+      }
+      console.log(fileList[0])
+    }
   };
 
   render() {
@@ -54,18 +55,27 @@ class UploadList extends Component {
     const { imageSrc } = this.state;
     return (
       <React.Fragment>
-        
-        <Card style={{maxWidth: 400}}>
-          <CardMedia
-            component="img"
-            alt="Contemplative Reptile"
-            image={imageSrc}
-          />
+        <Card style={{ maxWidth: 400 }}>
+          {/*imageSrc.map((x, y) => (
+            <CardMedia
+              key={y}
+              component="img"
+              alt="Contemplative Reptile"
+              image={x.imageSrc}
+            />
+          ))}
+          {/*<CardMedia
+                key={y}
+                component="img"
+                alt="Contemplative Reptile"
+                image={x.imageSrc}
+              />*/}
           <CardActions disableActionSpacing>
             <input
               type="file"
               id="raised-button-file"
               hidden
+              multiple
               ref={this.inputRef}
               {...inputProps}
             />
