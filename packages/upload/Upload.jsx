@@ -36,6 +36,7 @@ class Upload extends Component {
   }
 
   handleselectedFile = e => {
+    e.preventDefault();
     let fileReader = new FileReader();
     if (this.inputRef.current.files[0])
       fileReader.readAsDataURL(this.inputRef.current.files[0]);
