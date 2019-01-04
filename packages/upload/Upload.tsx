@@ -2,7 +2,18 @@ import React, { Component } from "react";
 import propTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 
-class Upload extends Component {
+interface UploadProps {
+  label: string;
+  inputProps: any;
+  buttonProps: any;
+}
+
+interface UploadState {
+  imageSrc: string
+}
+
+class Upload extends Component<UploadProps, UploadState> {
+  inputRef: any
   constructor(props) {
     super(props);
     this.inputRef = React.createRef();
@@ -40,7 +51,7 @@ class Upload extends Component {
     let fileReader = new FileReader();
     if (this.inputRef.current.files[0])
       fileReader.readAsDataURL(this.inputRef.current.files[0]);
-    fileReader.onload = e => {
+    fileReader.onload = (e: any) => {
       this.setState({
         imageSrc: e.target.result
       });
